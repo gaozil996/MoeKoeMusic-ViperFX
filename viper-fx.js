@@ -296,8 +296,14 @@
     applyPreset(state.preset);
   }
 
-  // 只在第一个 crossOrigin="anonymous" 的 audio 上抢（主播放器），其余放行
-  function maybeClaim(el) { if (!claimed) claim(el); }
+  // 只在第一个 crossOrigin="anonymous" 的 audio 上抢（主播放器），其余放行。
+  // 上传本地音乐时应用会建一个 preload="metadata" 的临时 audio 读时长，
+  // 它不设 crossOrigin；这里再拦一层 preload setter，万一它也被设成 anonymous
+  // 就撤销接管，避免把探测节点误当播放器。
+  function maybeClaim(el) {
+    if (claimed || el.preload === 'metadata') return;
+    claim(el);
+  }
   // 播放兜底：抢错了就换到真正在播的主播放器
   var origPlay = HTMLMediaElement.prototype.play;
   HTMLMediaElement.prototype.play = function () {
@@ -314,6 +320,14 @@
       var el = new OrigAudio();
       try {
         hookProp(el, 'crossOrigin', function (v) { if (v === 'anonymous') maybeClaim(el); });
+        hookProp(el, 'preload', function (v) {
+          // 探测音频的标记：若已被误抢则断开图，交还给宿主原生处理
+          if (v === 'metadata' && claimed === el) {
+            try { if (srcNode) srcNode.disconnect(); } catch (e) {}
+            claimed = null; srcNode = null; claimedPlayed = false;
+            diag.src = 'skip:probe'; diag.chain = '-';
+          }
+        });
       } catch (e) {}
       return el;
     };
