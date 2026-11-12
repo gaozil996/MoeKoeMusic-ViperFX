@@ -1,9 +1,9 @@
 {
   "manifest_version": 3,
-  "name": "蝰蛇音效",
+  "name": "蝰蛇音效 Pro",
   "plugin_id": "viper-fx",
-  "version": "1.0.0",
-  "description": "仿酷狗蝰蛇音效的实时音效插件。18 组预设覆盖超重低音、纯净人声、3D丽音、HiFi现场、空间音效、演唱会、黑胶等场景，基于 Web Audio 实时 DSP，含 6 段均衡、动态压缩、卷积混响、声场扩展与音量补偿。",
+  "version": "2.0.0",
+  "description": "模块化专业音效引擎：10段全参数EQ、谐波低音增强、激励/饱和、压缩/真峰限幅、卷积混响(可导入自定义IR)、M/S立体声场、实时频谱、智能自动调音与响度匹配、预设生态(JSON导入导出/自定义预设/A-B)。基于 Web Audio 实时 DSP。",
   "moekoe": true,
   "minversion": "1.7.0",
   "author": {
