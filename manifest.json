@@ -1,0 +1,41 @@
+{
+  "manifest_version": 3,
+  "name": "蝰蛇音效",
+  "plugin_id": "viper-fx",
+  "version": "1.0.0",
+  "description": "仿酷狗蝰蛇音效的实时音效插件。18 组预设覆盖超重低音、纯净人声、3D丽音、HiFi现场、空间音效、演唱会、黑胶等场景，基于 Web Audio 实时 DSP，含 6 段均衡、动态压缩、卷积混响、声场扩展与音量补偿。",
+  "moekoe": true,
+  "minversion": "1.7.0",
+  "author": {
+    "name": "SHIYI",
+    "url": "https://github.com/MoeKoeMusic/MoeKoeMusic"
+  },
+  "permissions": [
+    "storage"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "file:///*",
+        "http://*/*",
+        "https://*/*"
+      ],
+      "world": "MAIN",
+      "js": [
+        "viper-fx.js"
+      ],
+      "css": [
+        "styles.css"
+      ],
+      "run_at": "document_start"
+    }
+  ],
+  "icons": {
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png",
+    "256": "icons/icon256.png"
+  }
+}
